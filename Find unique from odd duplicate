@@ -1,0 +1,30 @@
+public class Solution {
+    public int singleNumber(int[] nums) {
+        int[] bitCount = new int[32]; // To count bits for each position
+
+        // Count bits for each position
+        for (int num : nums) {
+            for (int i = 0; i < 32; i++) {
+                if ((num & (1 << i)) != 0) {
+                    bitCount[i]++;
+                }
+            }
+        }
+
+        // Reconstruct the unique number
+        int result = 0;
+        for (int i = 0; i < 32; i++) {
+            if (bitCount[i] % 3 != 0) {
+                result |= (1 << i);
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        int[] nums = {2, 2, 3, 2};
+        System.out.println(solution.singleNumber(nums)); // Output: 3
+    }
+}
